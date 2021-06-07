@@ -1,0 +1,21 @@
+# Include your custom HAL commands here
+# This file will not be overwritten when you run stepconf again
+
+loadrt timedelay count=2
+
+addf timedelay.0 servo-thread
+addf timedelay.1 servo-thread
+
+setp timedelay.0.on-delay 0
+setp timedelay.0.off-delay 0
+### järgmine number ütleb, mitu sekundit peale vedelikku avaneb õhukraan
+setp timedelay.1.on-delay 5
+setp timedelay.1.off-delay 0.1
+
+net coolant-flood <= iocontrol.0.coolant-flood
+net coolant-mist <= iocontrol.0.coolant-mist
+
+net coolant-mist  => timedelay.0.in => timedelay.1.in
+
+net suru6hk_sig timedelay.0.out => parport.0.pin-16-out
+net vesi_sig timedelay.1.out => parport.0.pin-14-out
