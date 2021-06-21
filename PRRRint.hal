@@ -41,13 +41,13 @@ setp parport.0.pin-09-out-reset 1
 
 ### SISENDID
 ###
-net tool_sensor          	<= parport.0.pin-10-in
+#net tool_sensor          	<= parport.0.pin-10-in
 net probe          	<= parport.0.pin-11-in
 net home-x-y2          	<= parport.0.pin-12-in-not
 net home-z-y1          	<= parport.0.pin-13-in-not
 net estop-ext       <= parport.0.pin-15-in
 
-net tool_sensor => motion.probe-input
+net probe => motion.probe-input
 
 setp stepgen.0.position-scale [JOINT_0]SCALE
 setp stepgen.0.steplen 1
