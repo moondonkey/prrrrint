@@ -359,6 +359,7 @@ class ProbeScreenClass:
 
     def on_btn_jog_pressed( self, widget, data = None ):
         # only in manual mode we will allow jogging the axis at this development state
+        ### muutsin lähtuvalt http://linuxcnc.org/docs/html/config/python-interface.html
         self.command.mode( linuxcnc.MODE_MANUAL )
         self.command.wait_complete()
         self.stat.poll()
@@ -389,9 +390,12 @@ class ProbeScreenClass:
             direction = -1
 
         if self.distance <> 0:  # incremental jogging
-            self.command.jog( linuxcnc.JOG_INCREMENT, axisnumber, direction * velocity, self.distance )
+             
+            ### self.command.jog( linuxcnc.JOG_INCREMENT, axisnumber, direction * velocity, self.distance )
+            self.command.jog( linuxcnc.JOG_INCREMENT, False, axisletter, direction * velocity, self.distance )
         else:  # continuous jogging
-            self.command.jog( linuxcnc.JOG_CONTINUOUS, axisnumber, direction * velocity )
+            ### self.command.jog( linuxcnc.JOG_CONTINUOUS, axisnumber, direction * velocity )
+            self.command.jog( linuxcnc.JOG_CONTINUOUS, False, axisletter, direction * velocity )
 
     def on_btn_jog_released( self, widget, data = None ):
         axisletter = widget.get_label()[0]
@@ -404,7 +408,8 @@ class ProbeScreenClass:
         if self.distance <> 0:
             pass
         else:
-            self.command.jog( linuxcnc.JOG_STOP, axis )
+            ### self.command.jog( linuxcnc.JOG_STOP, axis )
+            self.command.jog( linuxcnc.JOG_STOP, False, axisletter )
 
 
     # Spin  buttons
