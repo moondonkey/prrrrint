@@ -1,8 +1,29 @@
-T1 P1 X0.0 Y0.0 Z0.0 A0.0 B0.0 C0.0 U0.0 V0.0 W0.0 D0.125 I0.0 J0.0 Q0.0 ;1/8 end mill 
-T2 P2 X0.0 Y0.0 Z0.0 A0.0 B0.0 C0.0 U0.0 V0.0 W0.0 D0.0625 I0.0 J0.0 Q0.0 ;1/16 end mill 
-T3 P3 X0.0 Y0.0 Z0.0 A0.0 B0.0 C0.0 U0.0 V0.0 W0.0 D0.201 I0.0 J0.0 Q0.0 ;#7 tap drill 
-T4 P4 X0.0 Y0.0 Z0.0 A0.0 B0.0 C0.0 U0.0 V0.0 W0.0 D0.0 I0.0 J0.0 Q0.0 ;big tool number 
-T14 P4 X0.0 Y0.0 Z0.0 A0.0 B0.0 C0.0 U0.0 V0.0 W0.0 D7.0 I0.0 J0.0 Q0.0 ;comment 
-T5 P5 X0.0 Y0.0 Z0.0 A0.0 B0.0 C0.0 U0.0 V0.0 W0.0 D3.0 I0.0 J0.0 Q0.0 ;hiina z1 
-T21 P6 X0.0 Y0.0 Z0.0 A0.0 B0.0 C0.0 U0.0 V0.0 W0.0 D6.0 I0.0 J0.0 Q0.0 ;osawa 6mm 
-T16 P0 X0.0 Y0.0 Z0.0 A0.0 B0.0 C0.0 U0.0 V0.0 W0.0 D0.0 I0.0 J0.0 Q0.0 ;probe 
+T1 P0 Z-71.566000 ;- 6x8 
+T2 P0 ;- 
+T3 P0 ;Ecostar - otsfrees Z/1 D3.0x12x40-S3mm 25° Plast/ALU HM 
+T4 P0 ;KWB - 2,5 mm metallipuur 
+T5 P0 ;Hiina - 3mm Z1 
+T6 P0 ;Hiina - 3mm metallipuur 
+T7 P0 Z+128.875167 ;StimZet - 6x90 
+T8 P0 Z+123.107600 ;- 
+T9 P0 Z+129.089000 ;- 6mm ball 
+T10 P0 Z-30.581700 ;OSAWA - 4x6x7x51 otsfrees 
+T11 P0 ;InovaTools - 4mm 45kraadi 
+T12 P0 Z+127.028000 ;- 5mm lühike 
+T13 P0 ;OSAWA - 6x6x31x57 3F 
+T14 P0 Z+143.845100 ;Attila - 7mm lühike 
+T15 P0 Z-115.421200 ;- 4.2 mm metallipuur 
+T16 P0 ;- 5.5mm metallipuur 
+T17 P0 Z-144.344700 ;Cerin - 6mm Z1 
+T18 P0 ;Cerin - 4mm Z1 
+T19 P0 Z+120.468600 ;Cerin - 3mm Z1 
+T20 P0 ;- Hiina 
+T21 P0 Z+126.254400 ;- Freesi oma 
+T22 P0 Z+242.426000 ;CERIN - 8mm Z1 
+T23 P0 Z+148.291300 ;ZPS-FN - 12x16 Z2 
+T24 P0 Z+126.324400 ;ZPS-FN - 
+T99 P0 Z+242.461000 ;PROBE 
+T25 P0 Z-90.566100 ;BAP300R 
+T26 P0 Z+64.545403 ;10x22 Z2 ZPS-FN.CZ 
+T27 P0 Z-109.382400 ;20mm KWB puidufrees 
+T28 P0 Z+127.564667 ;8mm KWB puidufrees 
