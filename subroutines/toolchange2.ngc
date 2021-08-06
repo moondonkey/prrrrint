@@ -1,11 +1,19 @@
-o<tool_touch_off> sub
+o<toolchange2> sub
+(M108 P#<_current_tool>  Q#<_selected_tool> )
 
-#<fast_probe_fr> = #1    (set from probe screen fast probe feed rate)
-#<slow_probe_fr> = #2    (set from probe screen slow probe feedrate)
-#<z_max_travel> = #3    (max z distance the tool travels before erroring out if not contact is made)
-#<xy_max_travel> = #4    (max xy distance the tool travels before erroring out if not contact is made)
-#<retract_distance> = #6    (distance the tool retracts after making contact during fast feed mode)
-#<spindle_zero_height> = #5    (G53 distance from home to spindle nose triggering point on touch plate)
+    G53 G0 Z0       ; Raise spindle
+    G53 G0 X0 Y0	; move to door
+
+    M6 G43
+
+
+
+#<fast_probe_fr> = 550    (set from probe screen fast probe feed rate)
+#<slow_probe_fr> = 30    (set from probe screen slow probe feedrate)
+#<z_max_travel> = 80    (max z distance the tool travels before erroring out if not contact is made)
+#<xy_max_travel> = 0    (max xy distance the tool travels before erroring out if not contact is made)
+#<retract_distance> = 3    (distance the tool retracts after making contact during fast feed mode)
+#<spindle_zero_height> = -121    (G53 distance from home to spindle nose triggering point on touch plate)
 #<tool_diameter_probe_mode> = #8    (activates the tool diameter probe subroutine section)
 #<tool_diameter_offset_mode> = #9    (activates the tool diameter offset position for probe subroutine section)
 #<tool_diameter> = #10    (current tool's diameter used for offseting probe position in x axis)
@@ -97,6 +105,6 @@ o<160> endif
 
 T #5400 G43  H #5400    (enable tool length offset)
 
-o<tool_touch_off> endsub
+o<toolchang2> endsub [1]
 
-M2 (end program)
+M2

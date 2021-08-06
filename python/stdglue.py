@@ -15,7 +15,7 @@
 #   along with this program; if not, write to the Free Software
 #   Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #
-#   Remap of M6 for auto tool measurement
+# gmoccapy - Remap of M6 for auto tool measurement
 
 import os
 import sys
@@ -90,9 +90,9 @@ def change_epilog(self, **words):
             return INTERP_OK
         else:
             if self.return_value == -1:
-                message = "Searchvel <= 0, not permitted!, Please correct Settings."
+                message = "Searchvel <= 0, not permitted!, Please correct INI Settings."
             elif self.return_value == -2:
-                message = "Probevel <= 0, not permitted!, Please correct Settings."
+                message = "Probevel <= 0, not permitted!, Please correct INI Settings."
             elif self.return_value == -3:
                 message = "Probe contact failiure !!"
             else:
