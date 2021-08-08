@@ -1,15 +1,5 @@
-# Include your custom_postgui HAL commands here
-# This file will not be overwritten when you run stepconf again
-
-
-
-net machine-is-enabled 	=> halui.machine.on
-
-net machine-not-enabled => halui.machine.off
-
-####
-
 loadrt and2 count=4
+#loadrt or2 count=1
 loadrt toggle count=1
 loadrt toggle2nist count=1
 
@@ -23,7 +13,7 @@ addf toggle2nist.0 servo-thread
 
 # External Program Pause/Resume and Run/Step Buttons
 # Pause/Resume Section
-net pause-resume-btn and2.0.in0 and2.1.in0 <= hm2_7i76e.0.7i76.0.0.input-12 
+net pause-resume-btn and2.0.in0 and2.1.in0 <= hm2_7i76e.0.7i76.0.0.input-11 (this is your input)
 net pause-on toggle2nist.0.is-on and2.0.in1 and2.3.in1 <= halui.program.is-paused
 net run-on and2.1.in1 <= halui.program.is-running
 net pause-sig or2.1.in0 <= and2.0.out
@@ -32,12 +22,10 @@ net toggle-ok toggle.0.in <= or2.1.out
 net togglesig toggle2nist.0.in <= toggle.0.out
 net toggleon halui.program.pause <= toggle2nist.0.on
 net toggleoff halui.program.resume <= toggle2nist.0.off
-
 # Run/Step Section
-net run-step-btn and2.2.in0 and2.3.in0 <= hm2_7i76e.0.7i76.0.0.input-13 
+net run-step-btn and2.2.in0 and2.3.in0 <= hm2_7i76e.0.7i76.0.0.input-12 (this is your input)
 net idle-on and2.2.in1 <= halui.program.is-idle
+# net pause.on and 2.3.in1 <= halui.program.is-paused
+# and2.3.in1 was added in the net pause-on statement in Pause/Resume Section
 net run-sig halui.mode.auto halui.program.run <= and2.2.out
 net step-sig halui.program.step <= and2.3.out
-
-net pause-on => hm2_7i76e.0.7i76.0.0.output-02
-net run-on => hm2_7i76e.0.7i76.0.0.output-03

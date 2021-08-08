@@ -255,9 +255,12 @@ net z-pos-limit     =>  joint.3.pos-lim-sw-in
 #  ---motion control signals---
 
 net in-position               <=  motion.in-position
-net machine-is-enabled        <=  motion.motion-enabled
+net machine-is-enabled        <=  hm2_7i76e.0.7i76.0.0.input-11
+net machine-not-enabled 		<=  hm2_7i76e.0.7i76.0.0.input-11-not
 
 #  ---digital in / out signals---
+
+
 
 #  ---estop signals---
 
@@ -267,7 +270,7 @@ net estop-out     =>  iocontrol.0.emc-enable-in
 
 #  ---manual tool change signals---
 
-loadusr -W hal_manualtoolchange
+loadusr -Wn tool_dialog qtvcp tool_dialog
 net tool-change-request     iocontrol.0.tool-change       =>  hal_manualtoolchange.change
 net tool-change-confirmed   iocontrol.0.tool-changed      <=  hal_manualtoolchange.changed
 net tool-number             iocontrol.0.tool-prep-number  =>  hal_manualtoolchange.number
