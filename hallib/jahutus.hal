@@ -1,46 +1,110 @@
 # Include your custom HAL commands here
 # This file will not be overwritten when you run stepconf again
 
-loadrt timedelay count=2
+loadrt timedelay count=4
 
 addf timedelay.0 servo-thread
 addf timedelay.1 servo-thread
+addf timedelay.2 servo-thread
+addf timedelay.3 servo-thread
 
-loadrt siggen
+#loadrt siggen
 
-addf siggen.0.update servo-thread
-setp siggen.0.frequency 2
+#addf siggen.0.update servo-thread
+#setp siggen.0.frequency 2
 
-loadrt mux_generic config="bb4"
-addf mux-gen.00 servo-thread
+#loadrt mux_generic config="bb4"
+#addf mux-gen.00 servo-thread
 
-setp mux-gen.00.in-bit-00 0
-setp mux-gen.00.in-bit-01 1
-net pulse siggen.0.clock => mux-gen.00.in-bit-02
-setp mux-gen.00.in-bit-03 1
+#setp mux-gen.00.in-bit-00 0
+#setp mux-gen.00.in-bit-01 1
+#net pulse siggen.0.clock => mux-gen.00.in-bit-02
+#setp mux-gen.00.in-bit-03 1
 
 setp timedelay.0.on-delay 0
 setp timedelay.0.off-delay 0
 ### järgmine number ütleb, mitu sekundit peale vedelikku avaneb õhukraan
-setp timedelay.1.on-delay 5
+setp timedelay.1.on-delay 10
 setp timedelay.1.off-delay 0.1
 
-net coolant-mist <= iocontrol.0.coolant-flood
-net coolant <= iocontrol.0.coolant-mist
+net coolant-mist <= iocontrol.0.coolant-mist
+
+net coolant-mist => timedelay.0.in timedelay.1.in
+net relee_5 <= timedelay.0.out
+
+net relee_6 <= timedelay.1.out
+
+#net coolant-mist <= iocontrol.0.coolant-flood
+#net coolant <= iocontrol.0.coolant-mist
+
+
 ### järgmine on ajutiselt kommenteeritud
 #net coolant-mist iocontrol.0.coolant-mist mux-gen.00.sel-bit-01
 
 #net 6hk <= iocontrol.0.coolant-mist
 ### järgmine on ajutiselt kommenteeritud
-#net coolant <= mux-gen.00.out-bit
+#net vedelik <= mux-gen.00.out-bit
 
 #net 6hk <= mux-gen.00.out-bit
 
 #net coolant-mist  => timedelay.0.in => timedelay.1.in
 
-###järgmised kommenteerisin, kui MESA peale üle läksin
+####
+##BT30 osa
+####
+###
+##Andurid
+###
+##Nupp esipaneelil
+net drawbar_nupp <= hm2_7i76e.0.7i76.0.0.input-20
+loadrt toggle count=2
+addf toggle.1 servo-thread
+net drawbar_nupp => toggle.1.in
+net drawbar_nupp2 <= toggle.1.out
 
-net coolant => hm2_7i76e.0.7i76.0.0.output-00 
-net coolant-mist => hm2_7i76e.0.7i76.0.0.output-01 
+##BT30 andurid
+net drawbar_open motion.digital-in-01 <= hm2_7i76e.0.7i76.0.0.input-21
+net tool_clamped motion.digital-in-02 <= hm2_7i76e.0.7i76.0.0.input-22
+
+loadrt and2 count=7 
+
+###Drawbar nupp tohib töötada ainult siis, kui mootor ei tööta
+
+#net spindle_k2ib <= spindle.0.on
+
+loadrt lut5 count=3 
+#addf lut5.0 servo-thread
+#setp lut5.0.function 0x4
+#net spindle_k2ib => lut5.0.in-0
+#net drawbar_nupp2 => lut5.0.in-1
+#net drawbar <= lut5.0.out
+
+# Load lut5 Tables
+addf lut5.0 servo-thread
+# output of lut5.0 HIGH when
+# in0 signal_toogle_manualatc = HIGH 
+# in1 motion.digital-out-01 = HIGH (or signal_toogle_manualatc; both ok too)
+# in2 spindle-running = LOW
+# corresponds to 1110 = hex E 
+setp lut5.0.function 0xE
+net drawbar_nupp2 lut5.0.in-0
+net signal_automatic_atc motion.digital-out-00 lut5.0.in-1
+net spinle_k2ib  lut5.0.in-2
+
+# 2.1 drawbar_open signal
+net drawbar lut5.0.out
+
+
+###Relee 1 Air Inlet
+net drawbar => hm2_7i76e.0.7i76.0.0.output-00
+###Relee 2 Dedust
+net drawbar => hm2_7i76e.0.7i76.0.0.output-01
+###Relee 3 Air Seal 
+net spindle_k2ib => hm2_7i76e.0.7i76.0.0.output-04
+
+net relee_5 => hm2_7i76e.0.7i76.0.0.output-05
+
+net relee_5 => hm2_7i76e.0.7i76.0.0.output-06
+net relee_6 => hm2_7i76e.0.7i76.0.0.output-07
 
 #net vesi_sig timedelay.1.out => parport.0.pin-14-out

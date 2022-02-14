@@ -1,0 +1,22 @@
+#
+# example usage of the Mitsubishi VFD driver
+#
+#loadrt vfd mitsub_vfd [--baud 9600] [--port /dev/ttyUSB0] name1=01
+#loadusr -Wn mitsub_vfd -b [9600] -p [/dev/ttyUSB0] spindle=01
+#loadusr -Wn mitsub_vfd /dev/ttyUSB0 -p 9600 spindle=01
+#loadusr -Wn spindle-vfd gs2_vfd -d /dev/ttyS0 -r 9600 -p none -s 2 -t 1 -n spindle-vfd -A 10 -D 0
+
+# **************** Spindle VFD setup slave 2 *********************
+#net spindle-vel-cmd               spindle.motor-cmd
+#net spindle-cw                    spindle.fwd
+#net spindle-on                    spindle.run
+#net spindle-at-speed              spindle.up-to-speed
+#net estop-out                     spindle.estop
+#       cmd scaled to RPM
+#setp spindle.scale-cmd .135
+#       feedback is in rpm
+#setp spindle.scale-fb 7.411
+#       allows us to see status
+#setp spindle.monitor 1
+
+#net spindle-speed-indicator spindle.motor-fb        gladevcp.spindle-speed
